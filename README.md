@@ -54,10 +54,10 @@ end
 
 Available jobs
 
-| name                                     | params                                       |
-| ---------------------------------------- | -------------------------------------------- |
-| ActiveCampaignIntegration::Jobs::SyncJob | user                                         |
-| ActiveCampaignIntegration::Jobs::SyncJob | user, event_name = 'test', event_value = nil |
+| name                                            | params                                       |
+| ----------------------------------------------- | -------------------------------------------- |
+| ActiveCampaignIntegration::Jobs::SyncJob        | user                                         |
+| ActiveCampaignIntegration::Jobs::CreateEventJob | user, event_name = 'test', event_value = nil |
 
 Eg:
 
