@@ -12,11 +12,15 @@ gem 'active_campaign_integration'
 
 And then execute:
 
-\$ bundle install
+```bash
+bundle install
+```
 
 Or install it yourself as:
 
-\$ gem install active_campaign_integration
+```bash
+gem install active_campaign_integration
+```
 
 ## Usage
 
