@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 module ActiveCampaignIntegration
-  class CreateCustomValueJob < ApplicationJob
-    queue_as 'crm.fifo'
+  module Jobs
+    class CreateCustomValueJob < ApplicationJob
+      queue_as ActiveCampaignIntegration.queue_name
 
-    def perform(remote_contact, custom_value, _timestamp)
-      # Do something later
-      ac = ActiveCampaignIntegration.new
-      ac.create_custom_value(remote_contact, custom_value)
+      discard_on ActiveJob::DeserializationError
+
+      def perform(remote_contact, custom_value, _timestamp)
+        ActiveCampaignIntegration.create_custom_value(remote_contact, custom_value)
+      end
     end
   end
 end

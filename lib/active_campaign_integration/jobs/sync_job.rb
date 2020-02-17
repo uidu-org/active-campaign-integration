@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module ActiveCampaignIntegration
-  class SyncJob < ApplicationJob
-    queue_as 'crm.fifo'
+  module Jobs
+    class SyncJob < ApplicationJob
+      queue_as ActiveCampaignIntegration.queue_name
 
-    discard_on ActiveJob::DeserializationError
+      discard_on ActiveJob::DeserializationError
 
-    def perform(user, _timestamp)
-      puts "Sync for user #{user.id}"
-      # Do something later
-      ac = ActiveCampaignIntegration.new
-      ac.sync_custom_values(user)
+      def perform(user, _timestamp)
+        # Do something later
+        ActiveCampaignIntegration.sync_custom_values(user)
+      end
     end
   end
 end
