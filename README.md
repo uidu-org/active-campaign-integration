@@ -62,7 +62,12 @@ Available jobs
 Eg:
 
 ```ruby
-  ActiveCampaignIntegration::Jobs::CreateEventJob.perform_later(current_user, 'JPAnalytics - MyPeople - Primo Dipendente', nil)
+  ActiveCampaignIntegration::Jobs::CreateEventJob.perform_later(
+    current_user,
+    'JPAnalytics - MyPeople - Primo Dipendente',
+    nil
+  )
+
   ActiveCampaignIntegration::Jobs::SyncJob.perform_later(current_user)
 ```
 
