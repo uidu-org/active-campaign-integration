@@ -120,6 +120,8 @@ module ActiveCampaignIntegration
   end
 
   def self.create_custom_values(user, remote_contact)
+    return unless remote_contact['fieldValues']
+
     to_be_created = custom_values_hash(
       user,
       'remove',
