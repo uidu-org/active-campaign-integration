@@ -73,12 +73,12 @@ module ActiveCampaignIntegration
 
     params = {
       contact: {
-        email: user.email,
-        firstName: user.first_name,
-        lastName: user.last_name,
-        phone: nil
+        email: user.email
       }
     }
+
+    params[:contact][:firstName] = user.first_name if user.first_name
+    params[:contact][:lastName] = user.last_name if user.last_name
 
     post(url, params)
   end
