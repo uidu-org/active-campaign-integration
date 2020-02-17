@@ -12,54 +12,54 @@ gem 'active_campaign_integration'
 
 And then execute:
 
-    $ bundle install
+\$ bundle install
 
 Or install it yourself as:
 
-    $ gem install active_campaign_integration
+\$ gem install active_campaign_integration
 
 ## Usage
 
 Setup you ActiveCampaign Integration with your user tokens. Puts this into an initializers `config/initializers/active_campaign_integration.rb`
 
 ```ruby
-config.base_url = ENV['AC_BASE_URL']
-config.api_token = ENV['AC_API_TOKEN']
+ActiveCampaignIntegration.setup do |config|
+  config.base_url = ENV['AC_BASE_URL']
+  config.api_token = ENV['AC_API_TOKEN']
 
-# user method to create the list of fields to pass to AC
-config.custom_fields_getter = :active_campaign_custom_fields
-
-config.queue_name = 'crm.fifo'
-
-config.evt_key = ENV['AC_API_EVT_KEY']
-config.evt_act_id = ENV['AC_API_EVT_ACT_ID']
+  # user method to create the list of fields to pass to AC
+  config.custom_fields_getter = :active_campaign_custom_fields
+  config.queue_name = 'crm.fifo'
+  config.evt_key = ENV['AC_API_EVT_KEY']
+  config.evt_act_id = ENV['AC_API_EVT_ACT_ID']
+end
 ```
 
 In user model `user.rb`, define a method to create the list for AC. For instance:
 
 ```ruby
 def active_campaign_custom_fields
-    list = []
+  list = []
 
-    # privacy
-    list << { field: 381, value: self.cf_1273 ? 'Acconsento' : 'Non acconsento' }
-    list << { field: 383, value: self.cf_1365 ? 'Acconsento' : 'Non acconsento' }
-    list
+  # privacy
+  list << { field: 381, value: self.cf_1273 ? 'Acconsento' : 'Non acconsento' }
+  list << { field: 383, value: self.cf_1365 ? 'Acconsento' : 'Non acconsento' }
+  list
 end
 ```
 
 Available jobs
 
-| name                                     | params                                                           |
-| ---------------------------------------- | ---------------------------------------------------------------- |
-| ActiveCampaignIntegration::Jobs::SyncJob | User                                                             |
-| ActiveCampaignIntegration::Jobs::SyncJob | user, event_name, event_value = nil, \_timestamp = Time.now.to_i |
+| name                                     | params                                       |
+| ---------------------------------------- | -------------------------------------------- |
+| ActiveCampaignIntegration::Jobs::SyncJob | user                                         |
+| ActiveCampaignIntegration::Jobs::SyncJob | user, event_name = 'test', event_value = nil |
 
 Eg:
 
 ```ruby
-    ActiveCampaignIntegration::Jobs::CreateEventJob.perform_later(current_user, 'JPAnalytics - MyPeople - Primo Dipendente', nil, Time.now.to_i)
-    ActiveCampaignIntegration::Jobs::SyncJob.perform_later(current_user, Time.now.to_i)
+  ActiveCampaignIntegration::Jobs::CreateEventJob.perform_later(current_user, 'JPAnalytics - MyPeople - Primo Dipendente', nil)
+  ActiveCampaignIntegration::Jobs::SyncJob.perform_later(current_user)
 ```
 
 ## Development
