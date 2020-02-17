@@ -35,6 +35,31 @@ config.evt_key = ENV['AC_API_EVT_KEY']
 config.evt_act_id = ENV['AC_API_EVT_ACT_ID']
 ```
 
+In user model `user.rb`, define a method to create the list for AC. For instance:
+
+```ruby
+def active_campaign_custom_fields
+    list = []
+
+    # privacy
+    list << { field: 381, value: self.cf_1273 ? 'Acconsento' : 'Non acconsento' }
+    list << { field: 383, value: self.cf_1365 ? 'Acconsento' : 'Non acconsento' }
+    list
+end
+```
+
+Available jobs
+| name | params |
+| ActiveCampaignIntegration::Jobs::SyncJob | User |
+| ActiveCampaignIntegration::Jobs::SyncJob | user, event_name, event_value = nil, \_timestamp = Time.now.to_i |
+
+Eg:
+
+```ruby
+    ActiveCampaignIntegration::Jobs::CreateEventJob.perform_later(current_user, 'JPAnalytics - MyPeople - Primo Dipendente', nil, Time.now.to_i)
+    ActiveCampaignIntegration::Jobs::SyncJob.perform_later(current_user, Time.now.to_i)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
