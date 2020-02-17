@@ -49,8 +49,10 @@ end
 ```
 
 Available jobs
-| name | params |
-| ActiveCampaignIntegration::Jobs::SyncJob | User |
+
+| name                                     | params                                                           |
+| ---------------------------------------- | ---------------------------------------------------------------- |
+| ActiveCampaignIntegration::Jobs::SyncJob | User                                                             |
 | ActiveCampaignIntegration::Jobs::SyncJob | user, event_name, event_value = nil, \_timestamp = Time.now.to_i |
 
 Eg:
