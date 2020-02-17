@@ -7,7 +7,7 @@ module ActiveCampaignIntegration
 
       discard_on ActiveJob::DeserializationError
 
-      def perform(remote_contact, custom_value, _timestamp)
+      def perform(remote_contact, custom_value, _timestamp = Time.now.to_i)
         # Do something later
         ActiveCampaignIntegration.update_custom_value(remote_contact, custom_value)
       end

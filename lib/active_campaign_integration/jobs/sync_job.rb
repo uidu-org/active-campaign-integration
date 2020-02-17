@@ -7,7 +7,7 @@ module ActiveCampaignIntegration
 
       discard_on ActiveJob::DeserializationError
 
-      def perform(user, _timestamp)
+      def perform(user, _timestamp = Time.now.to_i)
         # Do something later
         ActiveCampaignIntegration.sync_custom_values(user)
       end
