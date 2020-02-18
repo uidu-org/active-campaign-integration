@@ -159,6 +159,7 @@ module ActiveCampaignIntegration
   def self.create_tag(user, tag_id)
     remote_contact = get_remote_contact(user)
     return unless remote_contact
+    return unless remote_contact['contact']
 
     params = {
       contactTag: {
