@@ -155,6 +155,21 @@ module ActiveCampaignIntegration
     end
   end
 
+  def self.create_tag(user, tag_id)
+    remote_contact = get_remote_contact(user)
+    return unless remote_contact
+
+    params = {
+      contactTag: {
+        tag: tag_id,
+        contact: remote_contact['contact']['id'].to_i
+      }
+    }
+
+    url = URI("#{@@base_url}/contactTags")
+    post(url, params)
+  end
+
   def self.sync_custom_values(user)
     remote_contact = get_remote_contact(user)
     return unless remote_contact
