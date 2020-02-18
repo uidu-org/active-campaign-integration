@@ -6,6 +6,7 @@ module ActiveCampaignIntegration
   module Jobs
     autoload :CreateCustomValueJob, 'active_campaign_integration/jobs/create_custom_value_job'
     autoload :CreateEventJob, 'active_campaign_integration/jobs/create_event_job'
+    autoload :CreateTagJob, 'active_campaign_integration/jobs/create_tag_job'
     autoload :SyncJob, 'active_campaign_integration/jobs/sync_job'
     autoload :UpdateCustomValueJob, 'active_campaign_integration/jobs/update_custom_value_job'
   end
